@@ -3,11 +3,11 @@ using Library.Resources;
 
 namespace Library.Models;
 
-public class Language 
+public class Language
 {
     [Key]
     public Guid Id { get; set; }
-    
+
     [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(ErrorMessageResource))]
     [MaxLength(50, ErrorMessageResourceName = "MaxLengthError", ErrorMessageResourceType = typeof(ErrorMessageResource))]
     [MinLength(2, ErrorMessageResourceName = "MinLengthError", ErrorMessageResourceType = typeof(ErrorMessageResource))]

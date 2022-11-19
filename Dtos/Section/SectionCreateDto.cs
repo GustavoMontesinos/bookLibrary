@@ -10,11 +10,11 @@ public class SectionCreateDto
     [MinLength(5,ErrorMessageResourceName = "MinLengthError", ErrorMessageResourceType = typeof(ErrorMessageResource))]
     [DataType(DataType.Text)]
     public string? Title { get; set; }
-    
+
     [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(ErrorMessageResource))]
     [Display(Name = "Hierarchy level")]
     public string? HierarchyLevel { get; set; }
-    
+
     [Required(ErrorMessageResourceName = "RequiredError", ErrorMessageResourceType = typeof(ErrorMessageResource))]
     [Display(Name = "Page number")]
     [Range(1, int.MaxValue)]

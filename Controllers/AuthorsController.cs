@@ -40,7 +40,7 @@ public class AuthorsController : ControllerBase
             .Mapping<Author, AuthorReadDto>(authorList, HttpContext);
         return Ok(response);
     }
-    
+
     [HttpGet(
         template: "{id:guid}",
         Name = "GetAuthorById")]
@@ -89,13 +89,13 @@ public class AuthorsController : ControllerBase
         if (linkType != null) _linksGenerator.LinkType = linkType;
         var author = _mapper.Map<Author>(authorCreateDto);
         _repo.Create(author);
-        
+
         var authorWithLinks = _linksGenerator
             .Mapping<Author, AuthorReadDto>(
                 modelList: new List<Author> { author },
                 context: HttpContext)[0];
         _repo.SaveChanges();
-        
+
         return CreatedAtRoute(
             routeName: nameof(GetAuthorById),
             routeValues: new { id = author.Id },

@@ -17,7 +17,7 @@ public class SectionsController : ControllerBase
     private readonly IMapper _mapper;
 
     public SectionsController(
-        
+
         IGenericRepo repo,
         ILinksGenerator linksGenerator,
         IMapper mapper)
@@ -86,11 +86,11 @@ public class SectionsController : ControllerBase
         if (linkType != null) _linksGenerator.LinkType = linkType;
         var sectionExists = _repo.Exists<Section>(id);
         if (sectionExists == false) return NotFound();
-        
+
         var sectionUpdated = _repo.Update<Section, SectionUpdateDto>(section, id);
         sectionUpdated.Modified = DateTime.Now;
         _repo.SaveChanges();
-        
+
         var response = _linksGenerator
             .Mapping<Section, SectionReadDto>(
                 modelList: new List<Section> { sectionUpdated },

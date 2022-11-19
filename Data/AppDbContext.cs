@@ -11,7 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<Publisher> Publishers { get; set; }
     public DbSet<Section> Sections { get; set; }
     public DbSet<Tag> Tags { get; set; }
-    
+
     public DbSet<Language> Languages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -37,7 +37,7 @@ public class AppDbContext : DbContext
         builder.Entity<Tag>()
             .HasIndex(p => p.Name)
             .IsUnique();
-        
+
         builder.Entity<Language>().HasData(
             new Language{ Id = Guid.NewGuid(), Name = "Afrikaans"},
             new Language{ Id = Guid.NewGuid(), Name = "Arabic"},

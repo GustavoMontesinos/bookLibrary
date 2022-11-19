@@ -14,7 +14,7 @@ public class LinksGenerator : ILinksGenerator
     private MethodInfo _linkType = null!;
     private object[] _params = Array.Empty<object>();
     private readonly PluralizationService _pluralizationService = PluralizationService.CreateService(CultureInfo.GetCultureInfo("en-us"));
-    
+
     public LinksGenerator(
         LinkGenerator linkGenerator,
         IMapper mapper)
@@ -81,14 +81,14 @@ public class LinksGenerator : ILinksGenerator
                 else  nameId = name;
 
                 action = "Get" + name + "ById";
-                controller = _pluralizationService.Pluralize(name); 
+                controller = _pluralizationService.Pluralize(name);
                 var nonGenericId = modelProperties.First(f => f.Name.Equals(nameId+"Id"));
                 values = new { id = nonGenericId.GetValue(model)};
             }
             _params[2] = action;
             _params[3] = controller;
             _params[4] = values;
-                
+
             var link = _linkType?.Invoke(_linkGenerator,_params)?.ToString() ?? "about:blank";
             uri.SetValue(dto, new Uri(link));
         }

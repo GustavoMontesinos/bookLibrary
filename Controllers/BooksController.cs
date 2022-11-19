@@ -102,7 +102,7 @@ public class BooksController : ControllerBase
         if (linkType != null) _linksGenerator.LinkType = linkType;
         var bookExist = _repo.Exists<Book>(id);
         if (bookExist == false) return NotFound();
-        
+
         var tags = _repo
             .GetPropertyItemOfModel<Tag, Book>(id)
             .ToList();
@@ -139,7 +139,7 @@ public class BooksController : ControllerBase
         var authorExist = _repo.Exists<Author>(authorId);
         var bookExist = _repo.Exists<Book>(bookId);
         if (authorExist == false || bookExist == false) return NotFound();
-        
+
         _repo.DeletePropertyOfModel<Author, Book>(bookId, authorId);
         _repo.SaveChanges();
         return NoContent();
@@ -155,13 +155,13 @@ public class BooksController : ControllerBase
         var authorExist = _repo.Exists<Author>(authorId);
         var bookExist = _repo.Exists<Book>(bookId);
         if (authorExist == false || bookExist == false) return NotFound();
-        
+
         var addedAuthors = _repo.AddPropertyItemToAModel<Author, Book>(bookId, authorId);
         if (addedAuthors == null) return Conflict();
         _repo.SaveChanges();
         return Ok(_linksGenerator.Mapping<Author, AuthorReadDto>(addedAuthors.ToList(), HttpContext));
     }
-    
+
     // WARNING not tested for single property
     [HttpDelete(
         template: "{bookId:guid}/languages/{languageId:guid}",
@@ -173,7 +173,7 @@ public class BooksController : ControllerBase
         var languageExist = _repo.Exists<Language>(languageId);
         var bookExist = _repo.Exists<Book>(bookId);
         if (languageExist == false || bookExist == false) return NotFound();
-        
+
         _repo.DeletePropertyOfModel<Language, Book>(bookId, languageId);
         _repo.SaveChanges();
         return NoContent();
@@ -190,7 +190,7 @@ public class BooksController : ControllerBase
         var languageExist = _repo.Exists<Language>(languageId);
         var bookExist = _repo.Exists<Book>(bookId);
         if (languageExist == false || bookExist == false) return NotFound();
-        
+
         var addedLanguages = _repo.AddPropertyItemToAModel<Language, Book>(bookId, languageId);
         if (addedLanguages == null) return Conflict();
         _repo.SaveChanges();
@@ -208,10 +208,10 @@ public class BooksController : ControllerBase
         var sectionExist = _repo.Exists<Section>(sectionId);
         var bookExist = _repo.Exists<Book>(bookId);
         if (sectionExist == false || bookExist == false) return NotFound();
-        
+
         var section = _repo.GetById<Section>(sectionId);
         section.BookId = bookId;
-        
+
         var addedContents = _repo.AddPropertyItemToAModel<Section, Book>(bookId, sectionId);
         if (addedContents == null) return Conflict();
         _repo.SaveChanges();
@@ -229,7 +229,7 @@ public class BooksController : ControllerBase
         var sectionExist = _repo.Exists<Section>(sectionId);
         var bookExist = _repo.Exists<Book>(bookId);
         if (sectionExist == false || bookExist == false) return NotFound();
-        
+
         _repo.DeletePropertyOfModel<Section, Book>(bookId, sectionId);
         _repo.SaveChanges();
         return NoContent();
@@ -245,7 +245,7 @@ public class BooksController : ControllerBase
         var tagExists = _repo.Exists<Tag>(tagId);
         var bookExists = _repo.Exists<Book>(bookId);
         if (tagExists == false || bookExists == false) return NotFound();
-        
+
         var addedTags = _repo.AddPropertyItemToAModel<Tag, Book>(bookId, tagId);
         if (addedTags == null) return Conflict();
         _repo.SaveChanges();
@@ -262,7 +262,7 @@ public class BooksController : ControllerBase
         var authorExists = _repo.Exists<Tag>(tagId);
         var bookExists = _repo.Exists<Book>(bookId);
         if (authorExists == false || bookExists == false) return NotFound();
-        
+
         _repo.DeletePropertyOfModel<Tag, Book>(bookId, tagId);
         _repo.SaveChanges();
         return NoContent();
@@ -281,12 +281,7 @@ public class BooksController : ControllerBase
         var tagExists = isTagsIdsEmpty || tagsIds.Any(tId => _repo.Exists<Tag>(Guid.Parse(tId)));
         var publisherExists = _repo.Exists<Publisher>(Guid.Parse(bookDto.PublisherId!));
 
-        if ( !authorExists || 
-             !tagExists || 
-             !publisherExists)
-        {
-            return BadRequest();
-        }
+        if ( !authorExists || !tagExists || !publisherExists) return BadRequest();
 
         var book = _mapper.Map<Book>(bookDto);
         _repo.Create(book);
@@ -308,7 +303,7 @@ public class BooksController : ControllerBase
         if (linkType != null) _linksGenerator.LinkType = linkType;
         var bookExists = _repo.Exists<Book>(id);
         if (bookExists == false) return NotFound();
-        
+
         var bookUpdated = _repo.Update<Book, BookUpdateDto>(book, id);
         bookUpdated.Modified = DateTime.Now;
         _repo.SaveChanges();

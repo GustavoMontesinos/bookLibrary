@@ -25,7 +25,7 @@ public class LanguagesController : ControllerBase
         _linksGenerator = linksGenerator;
         _mapper = mapper;
     }
-    
+
     [HttpGet(Name = "GetAllLanguages")]
     public ActionResult<IEnumerable<Language>> GetAllLanguages(
         [FromQuery] LanguageParams languageParams,
@@ -39,7 +39,7 @@ public class LanguagesController : ControllerBase
             .Mapping<Language, LanguageReadDto>(languages, HttpContext);
         return Ok(response);
     }
-    
+
     [HttpGet(
         template: "{id:guid}",
         Name = "GetLanguageById")]

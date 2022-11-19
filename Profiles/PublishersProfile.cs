@@ -16,5 +16,5 @@ public class PublishersProfile : Profile
             .ForMember(p => p.Modified, opt => opt.MapFrom(x => DateTime.Now))
             .ForMember(p => p.Id, opt => opt.MapFrom(x => new Guid()))
             .ForMember(p => p.Books, opt => opt.Ignore());
-      }
+    }
 }

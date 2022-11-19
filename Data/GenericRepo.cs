@@ -31,16 +31,16 @@ public class GenericRepo : IGenericRepo
             .GetType()
             .GetMethod(operation);
         op!.Invoke(
-            obj: instance, 
+            obj: instance,
             parameters: new object?[] { item });
     }
 
     //TODO Fix parse of query parameters
-    public IEnumerable<T> GetAll<T, TParams>(TParams queryParams) 
+    public IEnumerable<T> GetAll<T, TParams>(TParams queryParams)
         where T : class
     {
         var query = BaseQuery<T>();
-        
+
         foreach (var property in queryParams!.GetType().GetProperties())
         {
             var value = property.GetValue(queryParams);
@@ -55,17 +55,17 @@ public class GenericRepo : IGenericRepo
             .Where("Id.Equals(@0)", id)
             .Select(_pluralizationService.Pluralize(typeof(TItem).Name))
             .First();
-    public T GetById<T>(Guid id) 
+    public T GetById<T>(Guid id)
         => BaseQuery<T>()
             .Where("Id.Equals(@0)", id)
             .Single()!;
-    public void Delete<T>(Guid id) 
+    public void Delete<T>(Guid id)
         => CrudFactory(
-            operation:"Remove", 
+            operation:"Remove",
             item: GetById<T>(id));
     public void Create<T>(T item)
         => CrudFactory(
-            operation:"Add", 
+            operation:"Add",
             item: item);
     public T Update<T, TDto>(TDto item, Guid id)
     {

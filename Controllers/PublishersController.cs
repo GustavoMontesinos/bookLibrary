@@ -68,7 +68,7 @@ public class PublishersController : ControllerBase
             .ToList();
         var response = _linksGenerator
             .Mapping<Book, BookReadDto>(books, HttpContext);
-        return Ok(response); 
+        return Ok(response);
     }
 
     [HttpPost]
@@ -79,17 +79,17 @@ public class PublishersController : ControllerBase
         if (linkType != null) _linksGenerator.LinkType = linkType;
         var publisher = _mapper.Map<Publisher>(publisherCreateDto);
         _repo.Create(publisher);
-        
+
         var publisherWithLinks = _linksGenerator
             .Mapping<Publisher, PublisherReadDto>(new List<Publisher> { publisher }, HttpContext)[0];
         _repo.SaveChanges();
-        
+
         return CreatedAtRoute(
             nameof(GetPublisherById),
             routeValues: new { id = publisher.Id },
             value: publisherWithLinks);
     }
-    
+
     [HttpPut(template: "{id:guid}")]
     public ActionResult<PublisherReadDto> UpdatePublisher(
         [FromRoute] Guid id,
@@ -109,7 +109,7 @@ public class PublishersController : ControllerBase
             .Mapping<Publisher, PublisherReadDto>(publishers, HttpContext)[0];
         return Ok(response);
     }
-    
+
     [HttpDelete(
         template: "{id:guid}",
         Name = "DeletePublisher")]

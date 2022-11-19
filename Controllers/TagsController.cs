@@ -98,7 +98,7 @@ public class TagsController : ControllerBase
         if (linkType != null) _linksGenerator.LinkType = linkType;
         var tagExists = _repo.Exists<Tag>(id);
         if (tagExists == false) return NotFound();
-        
+
         var tagUpdated = _repo.Update<Tag, TagUpdateDto>(tag, id);
         tagUpdated.Modified = DateTime.Now;
         _repo.SaveChanges();
@@ -107,7 +107,7 @@ public class TagsController : ControllerBase
             .Mapping<Tag, TagReadDto>(
                 modelList: new List<Tag> { tagUpdated },
                 context: HttpContext)[0];
-        
+
         return Ok(response);
     }
 

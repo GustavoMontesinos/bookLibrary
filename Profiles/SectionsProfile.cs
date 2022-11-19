@@ -20,5 +20,5 @@ public class SectionsProfile : Profile
             .ForMember(s => s.ParentId, opt => opt.MapFrom<SectionParentResolvers>())
             .ForMember(s => s.BookId, opt => opt.MapFrom<SectionBookResolvers>())
             .ForMember(s => s.HierarchyLevel, opt => opt.MapFrom<SectionHierarchyResolvers>());
-      }
+    }
 }

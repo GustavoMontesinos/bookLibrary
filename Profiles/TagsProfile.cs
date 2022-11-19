@@ -16,5 +16,5 @@ public class TagsProfile : Profile
             .ForMember(b => b.Modified, opt => opt.MapFrom(x => DateTime.Now))
             .ForMember(b => b.Id, opt => opt.MapFrom(x => new Guid()))
             .ForMember(b => b.Books, opt => opt.Ignore());
-     }
+    }
 }

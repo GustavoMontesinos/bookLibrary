@@ -21,8 +21,7 @@ public class BookAuthorResolver : IValueResolver<BookCreateDto, Book, ICollectio
         if (listAuthorsIds.Count > 0)
         {
             return _db.Authors
-                .Where(author => listAuthorsIds
-                    .Contains(author.Id.ToString()))
+                .Where(author => listAuthorsIds.Contains(author.Id.ToString()))
                 .ToList();
         }
         return new List<Author>();
@@ -64,8 +63,7 @@ public class BookTagResolver : IValueResolver<BookCreateDto, Book, ICollection<T
         if (tagId.Count > 0)
         {
             return _db.Tags
-                .Where(tag => tagId
-                    .Contains(tag.Id.ToString()))
+                .Where(tag => tagId.Contains(tag.Id.ToString()))
                 .ToList();
         }
         return new List<Tag>();
@@ -88,8 +86,7 @@ public class BookContentResolver : IValueResolver<BookCreateDto, Book, ICollecti
         if (sectionsIds.Count > 0)
         {
             return _db.Sections
-                .Where(section => sectionsIds
-                    .Contains(section.Id.ToString()))
+                .Where(section => sectionsIds.Contains(section.Id.ToString()))
                 .ToList();
         }
         return new List<Section>();
